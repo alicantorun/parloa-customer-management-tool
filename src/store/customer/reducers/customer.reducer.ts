@@ -4,11 +4,15 @@ import { CustomerActionTypes } from "store/customer/actions/customer.actions.typ
 import { v1 as uuidV1 } from "uuid";
 
 interface CustomerReducerInterface {
-  customers: Customer[];
+  customers: [];
+  isFetching: boolean;
+  error: boolean;
 }
 
 const initialState: CustomerReducerInterface = {
   customers: [],
+  isFetching: false,
+  error: false,
 };
 
 export const customerReducer = (
@@ -16,7 +20,7 @@ export const customerReducer = (
   action: CustomerActionTypes
 ) => {
   switch (action.type) {
-    case CUSTOMER_CONSTANTS.ADD_CUSTOMER_SUCCESS:
+    case CUSTOMER_CONSTANTS.ADD_CUSTOMER:
       return Object.assign({}, state, {
         customers: state.customers.concat({
           ...action.payload,
@@ -26,12 +30,35 @@ export const customerReducer = (
         }),
       });
 
-    case CUSTOMER_CONSTANTS.REMOVE_CUSTOMER_SUCCESS:
+    case CUSTOMER_CONSTANTS.REMOVE_CUSTOMER:
       return {
-        customers: state.customers.filter(
-          (customer: Customer) => customer.id !== action.payload.id
-        ),
+        ...state,
+        customers: state.customers.filter((customer: Customer) => {
+          return customer._id !== action.payload._id;
+        }),
       };
+
+    case CUSTOMER_CONSTANTS.FETCH_CUSTOMERS_REQUEST:
+      return {
+        ...state,
+        isFetching: action.payload.isFetching,
+        error: action.payload.error,
+      };
+
+    case CUSTOMER_CONSTANTS.FETCH_CUSTOMERS_SUCCESS:
+      return {
+        ...state,
+        isFetching: action.payload.isFetching,
+        customers: action.payload.customers,
+      };
+
+    case CUSTOMER_CONSTANTS.FETCH_CUSTOMERS_FAILURE:
+      return {
+        ...state,
+        isFetching: action.payload.isFetching,
+        error: action.payload.error,
+      };
+
     default:
       return state;
   }

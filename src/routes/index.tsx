@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import { CustomersContainer } from "containers/customers";
+import CustomersContainer from "containers/customers";
 
 interface RoutesProps {}
 

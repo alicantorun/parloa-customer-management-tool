@@ -4,10 +4,14 @@ interface Project {
 }
 
 export interface Customer {
-  id?: string;
+  _id?: string;
   isActive?: boolean;
   company?: string;
   industry?: string;
   about?: string;
   projects?: Project[];
+}
+
+export interface Customers {
+  customers: Customer[];
 }

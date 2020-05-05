@@ -38,6 +38,16 @@ export const customerReducer = (
         }),
       };
 
+    case CUSTOMER_CONSTANTS.EDIT_CUSTOMER:
+      return {
+        ...state,
+        customers: state.customers.map((customer: Customer) =>
+          customer._id === action.payload._id
+            ? Object.assign({}, customer, action.payload)
+            : customer
+        ),
+      };
+
     case CUSTOMER_CONSTANTS.FETCH_CUSTOMERS_REQUEST:
       return {
         ...state,

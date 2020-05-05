@@ -11,6 +11,11 @@ interface RemoveCustomerAction {
   payload: Customer | any;
 }
 
+interface EditCustomerAction {
+  type: typeof CUSTOMER_CONSTANTS.EDIT_CUSTOMER;
+  payload: Customer | any;
+}
+
 interface FetchCustomersRequestAction {
   type: typeof CUSTOMER_CONSTANTS.FETCH_CUSTOMERS_REQUEST;
   payload: {
@@ -40,4 +45,5 @@ export type CustomerActionTypes =
   | RemoveCustomerAction
   | FetchCustomersRequestAction
   | FetchCustomersSuccessAction
-  | FetchCustomersFailureAction;
+  | FetchCustomersFailureAction
+  | EditCustomerAction;

@@ -9,7 +9,7 @@ export interface Customer {
   company?: string;
   industry?: string;
   about?: string;
-  projects?: Project[];
+  projects: Project[];
 }
 
 export interface Customers {

@@ -16,6 +16,13 @@ export function removeCustomer(customer: Customer): CustomerActionTypes {
   };
 }
 
+export function editCustomer(customer: Customer): CustomerActionTypes {
+  return {
+    type: CUSTOMER_CONSTANTS.EDIT_CUSTOMER,
+    payload: customer,
+  };
+}
+
 export function fetchCustomersRequest(): CustomerActionTypes {
   return {
     type: CUSTOMER_CONSTANTS.FETCH_CUSTOMERS_REQUEST,

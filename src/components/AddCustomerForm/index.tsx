@@ -1,10 +1,9 @@
 import React from "react";
+import { Customer } from "store/customer/models/customer.model";
 import { Form, Row, Col, Button, Input } from "antd";
 import { PlusCircleFilled } from "@ant-design/icons";
-
-import "./styles.less";
-import { Customer } from "store/customer/models/customer.model";
 import TextArea from "antd/lib/input/TextArea";
+import "./styles.less";
 
 interface AddCustomerFormProps {
   onFormSubmit: (customer: Customer) => void;
@@ -17,8 +16,8 @@ export const AddCustomerForm: React.FC<AddCustomerFormProps> = ({
 
   const onFinish = () => {
     onFormSubmit({
-      company: form.getFieldValue("company"),
       industry: form.getFieldValue("industry"),
+      company: form.getFieldValue("company"),
       about: form.getFieldValue("about"),
       projects: [],
     });
@@ -27,18 +26,18 @@ export const AddCustomerForm: React.FC<AddCustomerFormProps> = ({
 
   return (
     <Form
-      form={form}
-      onFinish={onFinish}
-      layout="horizontal"
       className="customer-form"
+      layout="horizontal"
+      onFinish={onFinish}
+      form={form}
     >
       <Row gutter={20}>
         <Col xs={24} sm={24} md={17} lg={19} xl={20}>
           <Form.Item style={{ marginBottom: 0 }}>
             <Form.Item
-              name={"company"}
-              rules={[{ required: true }]}
               style={{ display: "inline-block", width: "calc(50% - 8px)" }}
+              rules={[{ required: true }]}
+              name={"company"}
             >
               <Input placeholder="Input customer name" />
             </Form.Item>
@@ -46,8 +45,8 @@ export const AddCustomerForm: React.FC<AddCustomerFormProps> = ({
               name={"industry"}
               rules={[{ required: true }]}
               style={{
-                display: "inline-block",
                 width: "calc(50% - 8px)",
+                display: "inline-block",
                 margin: "0 8px",
               }}
             >

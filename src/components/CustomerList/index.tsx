@@ -1,31 +1,31 @@
 import React from "react";
-import { List } from "antd";
-import { Row, Col } from "antd";
 import { Customer } from "store/customer/models/customer.model";
+import SelectIndustry from "components/Filters/SelectIndustry";
 import { Filter } from "store/filter/models/filter.model";
 import { CustomerItem } from "components/CustomerItem";
-import SelectIndustry from "components/Filters/SelectIndustry";
 import FilterName from "components/Filters/FilterName";
 import SortBy from "components/Filters/SortBy";
+import { Row, Col } from "antd";
+import { List } from "antd";
 
 interface CustomerListProps {
-  customers: Customer[];
-  customerIndustryOptions: (string | undefined)[];
-  onCustomerRemoval: (customer: Customer) => void;
-  onCustomerEdit: (customer: Customer) => void;
-  onCustomerSort: (handleCustomerSort: Filter) => void;
-  onCustomerNameFilter: (handleCustomerNameFilter: Filter) => void;
   onCustomerIndustryFilter: (handleCustomerIndustryFilter: Filter) => void;
+  onCustomerNameFilter: (handleCustomerNameFilter: Filter) => void;
+  onCustomerSort: (handleCustomerSort: Filter) => void;
+  onCustomerRemoval: (customer: Customer) => void;
+  customerIndustryOptions: (string | undefined)[];
+  onCustomerEdit: (customer: Customer) => void;
+  customers: Customer[];
 }
 
 export const CustomerList: React.FC<CustomerListProps> = ({
-  customers,
+  onCustomerIndustryFilter,
   customerIndustryOptions,
+  onCustomerNameFilter,
   onCustomerRemoval,
   onCustomerEdit,
   onCustomerSort,
-  onCustomerNameFilter,
-  onCustomerIndustryFilter,
+  customers,
 }) => {
   return (
     <>

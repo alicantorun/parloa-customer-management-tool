@@ -26,7 +26,7 @@ export const customerReducer = (
           {
             ...action.payload,
             ...{
-              id: uuidV1(),
+              _id: uuidV1(),
             },
           },
           ...state.customers,

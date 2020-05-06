@@ -11,27 +11,27 @@ import { RootState } from "store/app.store";
 import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import { message } from "antd";
-import "./styles.less";
 import {
   addCustomer,
   removeCustomer,
   editCustomer,
 } from "store/customer/actions";
+import "./styles.less";
 
 interface CustomersContainerProps {
-  fetchCustomers: any;
   customersData: Customer[];
   customers: Customer[];
   isFetching?: boolean;
+  fetchCustomers: any;
   error?: boolean;
 }
 
 const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
-  customers,
+  fetchCustomers,
   customersData,
   isFetching,
+  customers,
   error,
-  fetchCustomers,
 }) => {
   useEffect(() => {
     fetchCustomers();
@@ -55,17 +55,14 @@ const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
 
   const handleCustomerSort = (filter: Filter): void => {
     dispatch(sortBy(filter));
-    message.info("Customer state updated!");
   };
 
   const handleCustomerNameFilter = (filter: Filter): void => {
     dispatch(filterName(filter));
-    message.info("Customer state updated!");
   };
 
   const handleCustomerIndustryFilter = (filter: Filter): void => {
     dispatch(filterIndustry(filter));
-    message.info("Customer state updated!");
   };
 
   const getCustomerIndustryOptions = () => {
@@ -81,45 +78,27 @@ const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
       gutter={[0, 20]}
       className="customers-container"
     >
-      <Col
-        xs={{ span: 23 }}
-        sm={{ span: 23 }}
-        md={{ span: 21 }}
-        lg={{ span: 20 }}
-        xl={{ span: 18 }}
-      >
+      <Col xs={{ span: 23 }} md={{ span: 21 }} xl={{ span: 18 }}>
         <PageHeader
           title="Parloa Customer Management Tool"
           subTitle="To add a new customer, just fill the form below and click in add customer."
         />
       </Col>
-      <Col
-        xs={{ span: 23 }}
-        sm={{ span: 23 }}
-        md={{ span: 21 }}
-        lg={{ span: 20 }}
-        xl={{ span: 18 }}
-      >
+      <Col xs={{ span: 23 }} md={{ span: 21 }} xl={{ span: 18 }}>
         <Card title="Create a new customer">
           <AddCustomerForm onFormSubmit={handleFormSubmit} />
         </Card>
       </Col>
-      <Col
-        xs={{ span: 23 }}
-        sm={{ span: 23 }}
-        md={{ span: 21 }}
-        lg={{ span: 20 }}
-        xl={{ span: 18 }}
-      >
+      <Col xs={{ span: 23 }} md={{ span: 21 }} xl={{ span: 18 }}>
         <Card title="Customer List">
           <CustomerList
-            customers={customers}
+            onCustomerIndustryFilter={handleCustomerIndustryFilter}
             customerIndustryOptions={getCustomerIndustryOptions()}
+            onCustomerNameFilter={handleCustomerNameFilter}
             onCustomerRemoval={handleRemoveCustomer}
             onCustomerEdit={handleCustomerEdit}
             onCustomerSort={handleCustomerSort}
-            onCustomerNameFilter={handleCustomerNameFilter}
-            onCustomerIndustryFilter={handleCustomerIndustryFilter}
+            customers={customers}
           />
         </Card>
       </Col>

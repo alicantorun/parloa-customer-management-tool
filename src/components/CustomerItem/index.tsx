@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Tag, List, Button, Popconfirm } from "antd";
 
+import { Customer } from "store/customer/models/customer.model";
 import { Typography } from "antd";
 import { Collapse } from "antd";
-import "./styles.less";
-import { Customer } from "store/customer/models/customer.model";
 import { Input } from "antd";
+import "./styles.less";
 
+const { Title, Paragraph } = Typography;
 const { TextArea } = Input;
 const { Panel } = Collapse;
-const { Title, Paragraph } = Typography;
 
 interface CustomerItemProps {
   customer: Customer;

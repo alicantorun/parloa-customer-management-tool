@@ -1,10 +1,10 @@
 import React from "react";
-import { HashRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { HashRouter } from "react-router-dom";
+import { Persistor } from "redux-persist";
+import { Provider } from "react-redux";
 import { Routes } from "routes";
 import { Store } from "redux";
-import { Persistor } from "redux-persist";
 
 interface AppProps {
   store: Store;

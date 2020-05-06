@@ -6,7 +6,8 @@ import { AddCustomerForm } from "components/AddCustomerForm";
 import { Filter } from "store/filter/models/filter.model";
 import { CustomerList } from "components/CustomerList";
 import { fetchCustomers } from "store/customer/thunk";
-import { Row, Col, Card, PageHeader } from "antd";
+import useWindowSize from "store/hooks/useWindowSize";
+import { Row, Col, Card } from "antd";
 import { RootState } from "store/app.store";
 import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
@@ -17,6 +18,7 @@ import {
   editCustomer,
 } from "store/customer/actions";
 import "./styles.less";
+import Logo from "assets/logo.png";
 
 interface CustomersContainerProps {
   customersData: Customer[];
@@ -37,6 +39,7 @@ const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
     fetchCustomers();
   }, [fetchCustomers]);
   const dispatch = useDispatch();
+  const size = useWindowSize();
 
   const handleFormSubmit = (customer: Customer): void => {
     dispatch(addCustomer(customer));
@@ -79,10 +82,16 @@ const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
       className="customers-container"
     >
       <Col xs={{ span: 23 }} md={{ span: 21 }} xl={{ span: 18 }}>
-        <PageHeader
-          title="Parloa Customer Management Tool"
-          subTitle="To add a new customer, just fill the form below and click in add customer."
-        />
+        {size && size.width > 650 && (
+          <img
+            alt="logo"
+            src={Logo}
+            style={{ height: "40px", marginTop: "20px", position: "absolute" }}
+          />
+        )}
+        <h1 style={{ textAlign: "center", marginTop: "20px" }}>
+          Customer Management Tool
+        </h1>
       </Col>
       <Col xs={{ span: 23 }} md={{ span: 21 }} xl={{ span: 18 }}>
         <Card title="Create a new customer">

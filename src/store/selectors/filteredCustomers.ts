@@ -1,5 +1,4 @@
 import { createSelector } from "reselect";
-import _ from "lodash";
 
 const customersSelector = (state: any) => {
   return state.customer.customers;

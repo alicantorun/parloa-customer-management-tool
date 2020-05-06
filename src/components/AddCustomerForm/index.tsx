@@ -10,7 +10,7 @@ interface AddCustomerFormProps {
   onFormSubmit: (customer: Customer) => void;
 }
 
-export const AddCustomerForm: React.StatelessComponent<AddCustomerFormProps> = ({
+export const AddCustomerForm: React.FC<AddCustomerFormProps> = ({
   onFormSubmit,
 }) => {
   const [form] = Form.useForm();
@@ -22,7 +22,7 @@ export const AddCustomerForm: React.StatelessComponent<AddCustomerFormProps> = (
       about: form.getFieldValue("about"),
       projects: [],
     });
-    // form.resetFields();
+    form.resetFields();
   };
 
   return (
@@ -34,20 +34,13 @@ export const AddCustomerForm: React.StatelessComponent<AddCustomerFormProps> = (
     >
       <Row gutter={20}>
         <Col xs={24} sm={24} md={17} lg={19} xl={20}>
-          {/* <Form.Item
-            name={"name"}
-            rules={[{ required: true, message: "This field is required" }]}
-          >
-            <Input placeholder="What needs to be done?" />
-          </Form.Item> */}
-
-          <Form.Item label="Company" style={{ marginBottom: 0 }}>
+          <Form.Item style={{ marginBottom: 0 }}>
             <Form.Item
               name={"company"}
               rules={[{ required: true }]}
               style={{ display: "inline-block", width: "calc(50% - 8px)" }}
             >
-              <Input placeholder="Input company name" />
+              <Input placeholder="Input customer name" />
             </Form.Item>
             <Form.Item
               name={"industry"}
@@ -58,15 +51,15 @@ export const AddCustomerForm: React.StatelessComponent<AddCustomerFormProps> = (
                 margin: "0 8px",
               }}
             >
-              <Input placeholder="Input company industry" />
+              <Input placeholder="Input customer industry" />
             </Form.Item>
           </Form.Item>
           <Form.Item
             name={"about"}
             rules={[{ required: true }]}
-            style={{ display: "inline-block", width: "calc(50% - 8px)" }}
+            style={{ display: "inline-block", width: "calc(100% - 8px)" }}
           >
-            <TextArea placeholder="Input company info" />
+            <TextArea placeholder="Input customer info" />
           </Form.Item>
         </Col>
         <Col xs={24} sm={24} md={7} lg={5} xl={4}>

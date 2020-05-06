@@ -22,12 +22,15 @@ export const customerReducer = (
   switch (action.type) {
     case CUSTOMER_CONSTANTS.ADD_CUSTOMER:
       return Object.assign({}, state, {
-        customers: state.customers.concat({
-          ...action.payload,
-          ...{
-            id: uuidV1(),
+        customers: [
+          {
+            ...action.payload,
+            ...{
+              id: uuidV1(),
+            },
           },
-        }),
+          ...state.customers,
+        ],
       });
 
     case CUSTOMER_CONSTANTS.REMOVE_CUSTOMER:

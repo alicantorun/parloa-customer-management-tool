@@ -6,21 +6,27 @@ import { Customer } from "store/customer/models/customer.model";
 import { useDispatch, useSelector } from "react-redux";
 // import { addCustomer, removeCustomer } from "store/customer/actions";
 import { fetchCustomers } from "store/customer/thunk";
-import { RootState } from "store/customer/reducers";
+import { RootState } from "store/app.store";
 import {
   addCustomer,
   removeCustomer,
   editCustomer,
 } from "store/customer/actions";
+import { Filter } from "store/filter/models/filter.model";
+
+import { filterName, filterIndustry, sortBy } from "store/filter/actions";
 
 import { AddCustomerForm } from "components/AddCustomerForm";
 import { CustomerList } from "components/CustomerList";
 import { message } from "antd";
 
+import FilteredCustomersSelector from "store/selectors/filteredCustomers";
+
 import "./styles.less";
 
 interface CustomersContainerProps {
   fetchCustomers: any;
+  customersData: Customer[];
   customers: Customer[];
   isFetching?: boolean;
   error?: boolean;
@@ -28,6 +34,7 @@ interface CustomersContainerProps {
 
 const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
   customers,
+  customersData,
   isFetching,
   error,
   fetchCustomers,
@@ -51,6 +58,29 @@ const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
     dispatch(editCustomer(customer));
     message.info("Customer state updated!");
   };
+
+  const handleCustomerSort = (filter: Filter): void => {
+    dispatch(sortBy(filter));
+    message.info("Customer state updated!");
+  };
+
+  const handleCustomerNameFilter = (filter: Filter): void => {
+    dispatch(filterName(filter));
+    message.info("Customer state updated!");
+  };
+
+  const handleCustomerIndustryFilter = (filter: Filter): void => {
+    dispatch(filterIndustry(filter));
+    message.info("Customer state updated!");
+  };
+
+  const getCustomerIndustryOptions = () => {
+    if (customersData.length > 1)
+      return Array.from(new Set(customersData.map((c) => c.industry)));
+    else return [];
+  };
+
+  // const option = getCustomerIndustryOptions();
 
   return (
     <Row
@@ -92,8 +122,12 @@ const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
         <Card title="Customer List">
           <CustomerList
             customers={customers}
+            customerIndustryOptions={getCustomerIndustryOptions()}
             onCustomerRemoval={handleRemoveCustomer}
             onCustomerEdit={handleCustomerEdit}
+            onCustomerSort={handleCustomerSort}
+            onCustomerNameFilter={handleCustomerNameFilter}
+            onCustomerIndustryFilter={handleCustomerIndustryFilter}
           />
         </Card>
       </Col>
@@ -102,10 +136,10 @@ const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
 };
 
 const mapStateToProps = (state: RootState) => ({
+  customers: FilteredCustomersSelector(state),
+  customersData: state.customer.customers,
   isFetching: state.customer.isFetching,
-  customers: state.customer.customers,
   error: state.customer.error,
-  STATE: state,
 });
 
 export default connect(mapStateToProps, {

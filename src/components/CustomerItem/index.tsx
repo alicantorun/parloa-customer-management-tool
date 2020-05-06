@@ -31,6 +31,7 @@ export const CustomerItem: React.FC<CustomerItemProps> = ({
   const [company, setCompany] = useState(customer.company);
   const [about, setAbout] = useState(customer.about);
   const [industry, setIndustry] = useState(customer.industry);
+
   const getTagColor = () => {
     return customer.industry === "travel"
       ? "green"
@@ -41,19 +42,19 @@ export const CustomerItem: React.FC<CustomerItemProps> = ({
       : "purple";
   };
 
-  return (
-    <List.Item
-      actions={[
-        editMode ? null : (
-          <Popconfirm
-            title="Are you sure you want to delete?"
-            onConfirm={() => {
-              onCustomerRemoval(customer);
-            }}
-          >
-            <Button className="remove-customer-button">X</Button>
-          </Popconfirm>
-        ),
+  const handleCustomerEdit = () => {
+    onCustomerEdit({
+      ...customer,
+      company: company,
+      about: about,
+      industry: industry,
+    });
+    setEditMode(!editMode);
+  };
+
+  const getActionButtons = () => {
+    if (editMode) {
+      return [
         <Button
           onClick={() => {
             setEditMode(!editMode);
@@ -62,30 +63,39 @@ export const CustomerItem: React.FC<CustomerItemProps> = ({
         >
           {editMode ? "Cancel" : "Edit"}
         </Button>,
-        editMode ? (
-          <Button
-            onClick={() => {
-              onCustomerEdit({
-                ...customer,
-                company: company,
-                about: about,
-                industry: industry,
-              });
-              setEditMode(!editMode);
-            }}
-            className="remove-customer-button"
-          >
-            Confirm
-          </Button>
-        ) : null,
-      ]}
+        <Button onClick={handleCustomerEdit} className="remove-customer-button">
+          Apply
+        </Button>,
+      ];
+    } else {
+      return [
+        <Popconfirm
+          title="Are you sure you want to delete?"
+          onConfirm={() => {
+            onCustomerRemoval(customer);
+          }}
+        >
+          <Button className="remove-customer-button">Delete</Button>
+        </Popconfirm>,
+        <Button
+          onClick={() => {
+            setEditMode(!editMode);
+          }}
+          className="remove-customer-button"
+        >
+          {editMode ? "Cancel" : "Edit"}
+        </Button>,
+      ];
+    }
+  };
+
+  return (
+    <List.Item
+      actions={getActionButtons()}
       className="list-item"
       key={customer._id}
     >
-      <div
-        style={{ flexDirection: "column", width: "100%" }}
-        className="customer-item"
-      >
+      <div className="customer-item">
         <Typography style={{ width: "100%" }}>
           <div
             style={{
@@ -98,6 +108,7 @@ export const CustomerItem: React.FC<CustomerItemProps> = ({
             {editMode ? (
               <>
                 <Input
+                  style={{ marginRight: "8px" }}
                   onChange={(e) => {
                     setCompany(e.target.value);
                   }}
@@ -123,7 +134,8 @@ export const CustomerItem: React.FC<CustomerItemProps> = ({
           </div>
           {editMode ? (
             <TextArea
-              style={{ marginBottom: "14px" }}
+              autoSize={{ minRows: 3, maxRows: 5 }}
+              style={{ marginBottom: "14px", marginTop: "16px" }}
               defaultValue={customer.about}
               onChange={(e) => {
                 setAbout(e.target.value);
@@ -145,9 +157,13 @@ export const CustomerItem: React.FC<CustomerItemProps> = ({
                 key="1"
                 className="site-collapse-custom-panel"
               >
-                {customer.projects.map((item) => {
+                {customer.projects.map((item, index) => {
                   return (
-                    <ProjectItem name={item.name} enddate={item.enddate} />
+                    <ProjectItem
+                      key={index}
+                      name={item.name}
+                      enddate={item.enddate}
+                    />
                   );
                 })}
               </Panel>
@@ -161,13 +177,7 @@ export const CustomerItem: React.FC<CustomerItemProps> = ({
 
 const ProjectItem: React.FC<ProjectItemProps> = ({ name, enddate }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
+    <div className="project-item-wrapper">
       <div>{name}</div>
       <div>{enddate}</div>
     </div>

@@ -4,9 +4,15 @@
   display: flex;
   justify-content: space-between;
 
+  .ant-list-item-action {
+    width: 170px;
+  }
+
   .customer-item {
     display: flex;
     align-items: center;
+    flex-direction: column;
+    width: 100%;
 
     .customer-tag {
       margin: 10px;
@@ -42,4 +48,10 @@
       }
     }
   }
+}
+
+.project-item-wrapper {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
 }

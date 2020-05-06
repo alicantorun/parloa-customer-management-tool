@@ -5,7 +5,7 @@ import {
   fetchCustomersSuccess,
   fetchCustomersFailure,
 } from "../actions";
-import { RootState } from "../reducers";
+import { RootState } from "store/app.store";
 
 export const fetchCustomers = (): ThunkAction<
   void,

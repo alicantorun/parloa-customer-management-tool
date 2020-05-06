@@ -5,7 +5,7 @@ import CustomersContainer from "containers/customers";
 
 interface RoutesProps {}
 
-export const Routes: React.StatelessComponent<RoutesProps> = () => (
+export const Routes: React.FC<RoutesProps> = () => (
   <Switch>
     <Route path="/" exact={true} component={CustomersContainer} />
   </Switch>

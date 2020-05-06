@@ -12,6 +12,7 @@ const reduxPersistConfig: PersistConfig<any> = {
   key: "application",
   storage: storage,
   stateReconciler: autoMergeLevel2,
+  blacklist: ["customer", "filter"],
 };
 
 const rootReducer = combineReducers({

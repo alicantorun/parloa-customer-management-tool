@@ -24,9 +24,9 @@ export const SelectIndustry: React.FC<Props> = ({
           {o}
         </Option>
       ));
-      displayOptions.push(
+      displayOptions.unshift(
         <Option key="defaultKey" value={""}>
-          Show All
+          Filter By Industry
         </Option>
       );
     }
@@ -36,8 +36,8 @@ export const SelectIndustry: React.FC<Props> = ({
   return (
     <Select
       showSearch
-      style={{ width: 200 }}
-      placeholder="Select a person"
+      style={{ width: "100%", height: "40px" }}
+      placeholder="Filter By Industry"
       optionFilterProp="children"
       onChange={onChange}
     >

@@ -1,28 +1,22 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { Row, Col, Card, PageHeader } from "antd";
-
+import FilteredCustomersSelector from "store/selectors/filteredCustomers";
+import { filterName, filterIndustry, sortBy } from "store/filter/actions";
 import { Customer } from "store/customer/models/customer.model";
-import { useDispatch, useSelector } from "react-redux";
-// import { addCustomer, removeCustomer } from "store/customer/actions";
+import { AddCustomerForm } from "components/AddCustomerForm";
+import { Filter } from "store/filter/models/filter.model";
+import { CustomerList } from "components/CustomerList";
 import { fetchCustomers } from "store/customer/thunk";
+import { Row, Col, Card, PageHeader } from "antd";
 import { RootState } from "store/app.store";
+import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
+import { message } from "antd";
+import "./styles.less";
 import {
   addCustomer,
   removeCustomer,
   editCustomer,
 } from "store/customer/actions";
-import { Filter } from "store/filter/models/filter.model";
-
-import { filterName, filterIndustry, sortBy } from "store/filter/actions";
-
-import { AddCustomerForm } from "components/AddCustomerForm";
-import { CustomerList } from "components/CustomerList";
-import { message } from "antd";
-
-import FilteredCustomersSelector from "store/selectors/filteredCustomers";
-
-import "./styles.less";
 
 interface CustomersContainerProps {
   fetchCustomers: any;
@@ -80,8 +74,6 @@ const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
     else return [];
   };
 
-  // const option = getCustomerIndustryOptions();
-
   return (
     <Row
       justify="center"
@@ -97,8 +89,8 @@ const CustomersContainer: React.FunctionComponent<CustomersContainerProps> = ({
         xl={{ span: 18 }}
       >
         <PageHeader
-          title="Add Customer"
-          subTitle="To add a customer, just fill the form below and click in add customer."
+          title="Parloa Customer Management Tool"
+          subTitle="To add a new customer, just fill the form below and click in add customer."
         />
       </Col>
       <Col

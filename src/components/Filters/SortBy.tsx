@@ -14,7 +14,7 @@ export const SortBy: React.FC<Props> = ({ onCustomerSort }) => {
 
   return (
     <Select
-      style={{ width: 200 }}
+      style={{ width: "100%", height: "40px" }}
       placeholder="Sort By"
       optionFilterProp="children"
       onChange={onChange}

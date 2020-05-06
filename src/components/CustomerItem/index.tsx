@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Tooltip, Tag, List, Button, Popconfirm, Switch } from "antd";
-import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
-import { Typography, Divider } from "antd";
+import { Tag, List, Button, Popconfirm } from "antd";
+
+import { Typography } from "antd";
 import { Collapse } from "antd";
 import "./styles.less";
 import { Customer } from "store/customer/models/customer.model";
-import { Form, Row, Col, Input } from "antd";
-const { TextArea } = Input;
+import { Input } from "antd";
 
+const { TextArea } = Input;
 const { Panel } = Collapse;
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 interface CustomerItemProps {
   customer: Customer;
@@ -75,7 +75,9 @@ export const CustomerItem: React.FC<CustomerItemProps> = ({
             onCustomerRemoval(customer);
           }}
         >
-          <Button className="remove-customer-button">Delete</Button>
+          <Button color="red" className="remove-customer-button">
+            Delete
+          </Button>
         </Popconfirm>,
         <Button
           onClick={() => {

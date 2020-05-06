@@ -1,13 +1,13 @@
 import React from "react";
-
 import { List } from "antd";
-
+import { Row, Col } from "antd";
 import { Customer } from "store/customer/models/customer.model";
 import { Filter } from "store/filter/models/filter.model";
 import { CustomerItem } from "components/CustomerItem";
 import SelectIndustry from "components/Filters/SelectIndustry";
 import FilterName from "components/Filters/FilterName";
 import SortBy from "components/Filters/SortBy";
+
 interface CustomerListProps {
   customers: Customer[];
   customerIndustryOptions: (string | undefined)[];
@@ -29,19 +29,20 @@ export const CustomerList: React.FC<CustomerListProps> = ({
 }) => {
   return (
     <>
-      <h1
-        onClick={() => {
-          onCustomerSort({ order: "descending" });
-        }}
-      >
-        test
-      </h1>
-      <SelectIndustry
-        onCustomerIndustryFilter={onCustomerIndustryFilter}
-        options={customerIndustryOptions}
-      />
-      <FilterName onCustomerNameFilter={onCustomerNameFilter} />
-      <SortBy onCustomerSort={onCustomerSort} />
+      <Row gutter={20}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <FilterName onCustomerNameFilter={onCustomerNameFilter} />
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6}>
+          <SelectIndustry
+            onCustomerIndustryFilter={onCustomerIndustryFilter}
+            options={customerIndustryOptions}
+          />
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6}>
+          <SortBy onCustomerSort={onCustomerSort} />
+        </Col>
+      </Row>
       <List
         locale={{
           emptyText: "No customer is found...",

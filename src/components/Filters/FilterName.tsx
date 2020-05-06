@@ -11,7 +11,13 @@ export const FilterName: React.FC<Props> = ({ onCustomerNameFilter }) => {
     onCustomerNameFilter({ name: value });
   };
 
-  return <Search placeholder="input search text" onSearch={onSearch} />;
+  return (
+    <Search
+      placeholder="input search text"
+      onSearch={onSearch}
+      style={{ marginBottom: "10px" }}
+    />
+  );
 };
 
 export default FilterName;
